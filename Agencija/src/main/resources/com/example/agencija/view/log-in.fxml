@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agencija.view.Login">
+   <center>
+      <AnchorPane prefHeight="460.0" prefWidth="494.0" style="-fx-background-color: white; -fx-border-color: #F68B1F; -fx-border-width: 10px;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="152.0" layoutY="70.0" text="Turistička Agencija">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="154.0" prefHeight="22.0" prefWidth="125.0" style="-fx-font-weight: bold;" text="Korisničko ime:">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font></Label>
+            <Label layoutX="124.0" layoutY="192.0" style="-fx-font-weight: bold;" text="Šifra:">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <TextField fx:id="usernameInput" layoutX="176.0" layoutY="153.0" prefHeight="25.0" prefWidth="235.0" />
+            <PasswordField fx:id="userpassInput" layoutX="176.0" layoutY="188.0" prefHeight="25.0" prefWidth="235.0" />
+            <TextField fx:id="passwordText" layoutX="175.0" layoutY="188.0" prefHeight="25.0" prefWidth="237.0" visible="false" />
+            <Button fx:id="btnSubmit" layoutX="182.0" layoutY="319.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: #F68B1F; -fx-font-weight: bold;" text="Prijava" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="104.0" fitWidth="92.0" layoutX="26.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@travel_logo.png" />
+               </image>
+            </ImageView>
+            <CheckBox fx:id="showPassBtn" alignment="CENTER" layoutX="176.0" layoutY="228.0" mnemonicParsing="false" onAction="#showPassword" prefHeight="19.0" prefWidth="111.0" text="Prikaži šifru">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </CheckBox>
+            <Button fx:id="btnRegister" layoutX="227.0" layoutY="387.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="126.0" style="-fx-background-color: #4F8BC9; -fx-font-weight: bold;" onAction="#promijeniScenuRegistracija" text="Registracija" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Label layoutX="149.0" layoutY="396.0" text="Novi ste?">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="loginErrorMsg" alignment="CENTER" layoutX="70.0" layoutY="267.0" prefHeight="24.0" prefWidth="355.0" text="" textFill="RED" />
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <AnchorPane prefHeight="450.0" prefWidth="50.0" style="-fx-background-color: #4F8BC9;" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <AnchorPane prefHeight="450.0" prefWidth="50.0" style="-fx-background-color: #4F8BC9;" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <AnchorPane prefHeight="30.0" prefWidth="594.0" style="-fx-background-color: #4F8BC9;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <AnchorPane prefHeight="30.0" prefWidth="594.0" style="-fx-background-color: #4F8BC9;" BorderPane.alignment="CENTER" />
+   </top>
+</BorderPane>

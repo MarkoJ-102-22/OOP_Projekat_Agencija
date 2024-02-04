@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agencija.view.Registracija">
+   <top>
+      <AnchorPane prefHeight="40.0" prefWidth="772.0" style="-fx-background-color: #4F8BC9;" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <AnchorPane prefHeight="533.0" prefWidth="45.0" style="-fx-background-color: #4F8BC9;" BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <AnchorPane prefHeight="40.0" prefWidth="768.0" style="-fx-background-color: #4F8BC9;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <AnchorPane prefHeight="533.0" prefWidth="45.0" style="-fx-background-color: #4F8BC9;" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <AnchorPane prefHeight="452.0" prefWidth="468.0" style="-fx-background-color: #ffffff; -fx-border-color: #F68B1F; -fx-border-width: 10px;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="111.0" fitWidth="111.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@travel_logo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="121.0" layoutY="152.0" prefHeight="15.0" prefWidth="32.0" text="Ime:" textAlignment="RIGHT">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="firstName" layoutX="160.0" layoutY="150.0" />
+            <TextField fx:id="lastName" layoutX="160.0" layoutY="180.0" />
+            <TextField fx:id="phoneNumber" layoutX="160.0" layoutY="213.0" />
+            <TextField fx:id="JMBG" layoutX="160.0" layoutY="247.0" />
+            <TextField fx:id="username" layoutX="160.0" layoutY="280.0" />
+            <TextField fx:id="bankAcc" layoutX="160.0" layoutY="314.0" />
+            <Label layoutX="137.0" layoutY="81.0" text="Registraciona forma">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="94.0" layoutY="182.0" prefHeight="21.0" prefWidth="62.0" text="Prezime:" textAlignment="RIGHT">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="56.0" layoutY="215.0" prefHeight="21.0" prefWidth="93.0" text="Broj telefona :" textAlignment="RIGHT">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="103.0" layoutY="249.0" prefHeight="21.0" prefWidth="44.0" text="JMBG:" textAlignment="RIGHT">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="39.0" layoutY="387.0" prefHeight="21.0" prefWidth="110.0" text="Potvrda Lozinke:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="93.0" layoutY="353.0" prefHeight="21.0" prefWidth="57.0" text="Lozinka:" textAlignment="RIGHT">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="282.0" prefHeight="21.0" prefWidth="100.0" text="Korsničko ime:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="162.0" layoutY="460.0" mnemonicParsing="false" onAction="#registracijaKorisnika" prefHeight="44.0" prefWidth="144.0" style="-fx-background-color: #4F8BC9; -fx-font-weight: bold;" text="Registruj se" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Label layoutX="40.0" layoutY="316.0" prefHeight="21.0" prefWidth="109.0" text="Bankovni račun:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="password" layoutX="160.0" layoutY="351.0" />
+            <PasswordField fx:id="passwordConfirmation" layoutX="160.0" layoutY="385.0" />
+            <Button fx:id="backButton" layoutX="25.0" layoutY="469.0" mnemonicParsing="false" onAction="#promijeniScenuLogin" style="-fx-background-color: #F68B1F; -fx-font-weight: bold;" text="Nazad" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Label fx:id="ErrReg" layoutX="191.0" layoutY="430.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

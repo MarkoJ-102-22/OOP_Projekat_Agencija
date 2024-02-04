@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.PasswordField?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agencija.view.potvrdaRezervacije">
+   <children>
+      <TabPane prefHeight="495.0" prefWidth="801.0" style="-fx-border-color: #F68B1F; -fx-border-width: 10px;" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Potvrda Rezervacije">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="580.0">
+                     <children>
+                        <Label layoutX="224.0" layoutY="28.0" style="-fx-font-weight: bold;" text="Potvrda Rezervacije" textFill="#4f8bc9">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="potvrdaRezervisi" layoutX="519.0" layoutY="288.0" mnemonicParsing="false" style="-fx-background-color: #4f8bc9; -fx-font-weight: bold;" text="Rezerviši" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <TextArea fx:id="potvrdaInfo" layoutX="34.0" layoutY="123.0" prefHeight="290.0" prefWidth="313.0" />
+                        <Label layoutX="92.0" layoutY="87.0" text="Informacije o aranžmanu">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="511.0" layoutY="147.0" text="Potvrdite šifru:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="potvrdaSifra" layoutX="482.0" layoutY="193.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </PasswordField>
+                        <Label fx:id="potvrdaErrorPoruka" id="errorReservationConfirmation" layoutX="564.0" layoutY="237.0" textFill="RED">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                         <Button fx:id="potvrdaNazad" id="nazad" onAction="#promijeniScenuKlijent" layoutX="34.0" layoutY="36.0" mnemonicParsing="false" style="-fx-background-color: #4f8bc9; -fx-font-weight: bold;" text="Nazad" textFill="WHITE">
+                             <font>
+                                 <Font size="14.0" />
+                             </font>
+                         </Button>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
