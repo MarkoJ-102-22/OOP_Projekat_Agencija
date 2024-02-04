@@ -581,6 +581,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
                 agencija.vratiNovacAgenciji(placenoPolaInt);
                 bankRacun.skiniNovacKlijentu(klijentId,placenoPolaInt);
                 DBUtils.dodajRezervacijuDB(klijentId, id, cijenaSmjestaja, String.valueOf(placenoPolaInt));
+                DBUtils.getDataFromDB();
 
                 System.out.println("Rezervacija potvrđena!");
             }
@@ -664,6 +665,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
 
                     DBUtils.obrisiRezervacijuDB(klijentidInt,id);
+                    DBUtils.getDataFromDB();
                     brisanjeListaRezervacija.getItems().remove(selektovanaRezervacija);
                     System.out.println("Aranžman polazi za 14 ili više dana.");
                 }
@@ -702,6 +704,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
             } else if (razlika < 14){
                 if (! rez.getUkupnaCijena().equals(rez.getPlacenaCijena())){
                     obrisiRezervacijuDB(rez.getKlijentID(),rez.getAranzmanID());
+                    DBUtils.getDataFromDB();
                     Double ukupnoDouble = Double.parseDouble(rez.getUkupnaCijena());
                     Bankovni_racun.vratiNovacKlijentu(rez.getKlijentID(),ukupnoDouble/2);
                     Bankovni_racun.skiniNovacAgenciji(ukupnoDouble/2);
@@ -832,7 +835,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
                                 Bankovni_racun.skiniNovacKlijentu(klijentidInt,uplataDouble);
                                 Bankovni_racun.vratiNovacAgenciji(uplataDouble);
                                 DBUtils.azurirajPlacenuCijenuRezervacije(klijentidInt, id, novaUplata);
-
+                                DBUtils.getDataFromDB();
 
 
                                 kolicina_uplate.clear();
