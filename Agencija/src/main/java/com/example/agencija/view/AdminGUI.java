@@ -597,6 +597,7 @@ public class AdminGUI extends Kontroler implements Initializable{
             prozorObavjestenja("Greška", "Datum izleta je prazno polje");
         } else {
             DBUtils.dodajIzletDB(i, nazivIzleta, destinacijaIzleta, datumIzleta, cijenaIzleta);
+            DBUtils.getDataFromDB();
         }
     }
     public void dodajPutovanje() {
@@ -617,6 +618,7 @@ public class AdminGUI extends Kontroler implements Initializable{
         String brojZvjezdica = dodavanjeBrojZvjezdica.getValue();
 
         DBUtils.dodajSmjestajDB(id,nazivSmjestaja,brojZvjezdica,vrstaSobe,cijenaNocenjePutovanja);
+        DBUtils.getDataFromDB();
         if (cijenaNocenjePutovanja.isBlank()) {
             prozorObavjestenja("Greška", "Cijena po nocenju je prazno polje");
         } else if (vrstaSobe.isBlank()) {
@@ -639,6 +641,7 @@ public class AdminGUI extends Kontroler implements Initializable{
 
 
             DBUtils.dodajAranzmanDB(id,nazivPutovanja,destinacijaPutovanja,tipPrevoza,datumPolaskaPutovanja,datumPovratkaPutovanja,cijenaPutovanja,id);
+            DBUtils.getDataFromDB();
         }
     }
 
@@ -670,6 +673,7 @@ public class AdminGUI extends Kontroler implements Initializable{
             otkaziPutovanje(id);
 
             brisanjeListaAranzmana.getItems().remove(selektovaniAranzman);
+            DBUtils.getDataFromDB();
         } else {
 
             System.out.println("Molimo vas da selektujete aranžman za brisanje.");
@@ -712,6 +716,7 @@ public class AdminGUI extends Kontroler implements Initializable{
             adminIme.setText("");
             adminPrezime.setText("");
             adminKorisnickoIme.setText("");
+            DBUtils.getDataFromDB();
 
             ArrayList<Admin> sviAdmini = getSviAdmini();
 
