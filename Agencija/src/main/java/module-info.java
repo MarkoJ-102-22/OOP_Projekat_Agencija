@@ -12,7 +12,7 @@ module com.example.agencija {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
-
+    requires java.desktop;
 
 
 //    opens com.example.agencija to javafx.fxml;

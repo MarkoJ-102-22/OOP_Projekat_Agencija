@@ -54,9 +54,8 @@ public class DBUtils {
             }
 
         } catch (SQLException e) {
-            //moze i throw new RuntimeException(e);
             e.printStackTrace();
-        }//iz nekog razloga mi je trazio catch da dodam
+        }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -106,9 +105,7 @@ public class DBUtils {
             }
 
         } catch (SQLException e) {
-            //moze i throw new RuntimeException(e);
             e.printStackTrace();
-            //i ovde je trazio da se doda catch
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -158,7 +155,7 @@ public class DBUtils {
             }
 
         } catch (SQLException e) {
-            //moze i throw new RuntimeException(e);
+
             e.printStackTrace();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -180,7 +177,7 @@ public class DBUtils {
             }
 
         } catch (SQLException e) {
-            //moze i throw new RuntimeException(e);
+
             e.printStackTrace();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -203,7 +200,7 @@ public class DBUtils {
             }
 
         } catch (SQLException e) {
-            //moze i throw new RuntimeException(e);
+
             e.printStackTrace();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -227,7 +224,7 @@ public class DBUtils {
             }
 
         } catch (SQLException e) {
-            //moze i throw new RuntimeException(e);
+
             e.printStackTrace();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -255,13 +252,13 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Klijent uspešno dodat u bazu.");
 
-                    // Dobijanje generisanog ključa (ID)
+
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID klijenta: " + newID);
 
-                        // Kreiranje objekta Klijent sa ispravnim ID-om
+
                         new Klijent(newID, ime, prezime, broj_telefona, jmbg, broj_racuna, korisnickoIme, lozinka);
                     }
                 } else {
@@ -293,13 +290,12 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Admin uspešno dodat u bazu.");
 
-                    // Dobijanje generisanog ključa (ID)
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID admina: " + newID);
 
-                        // Kreiranje objekta Klijent sa ispravnim ID-om
+
                         new Admin(newID, ime, prezime,korisnicko_ime, lozinka);
                     }
                 } else {
@@ -331,13 +327,13 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Smjestaj uspešno dodat u bazu.");
 
-                    // Dobijanje generisanog ključa (ID)
+
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID smjestaja: " + newID);
 
-                        // Kreiranje objekta Klijent sa ispravnim ID-om
+
                         new Smjestaj(newID, naziv, broj_zvjezdica,vrsta_sobe, cjena_po_nocenju);
                     }
                 } else {
@@ -368,13 +364,13 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Bankovni racun uspešno dodat u bazu.");
 
-                    // Dobijanje generisanog ključa (ID)
+
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID bankovnog racuna: " + newID);
 
-                        // Kreiranje objekta Klijent sa ispravnim ID-om
+
                         new Bankovni_racun(newID, broj_racuna, jmbg,stanje);
                     }
                 } else {
@@ -409,14 +405,14 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Aranzman uspešno dodat u bazu.");
 
-                    // Dobijanje generisanog ključa (ID)
+
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID Aranzmana racuna: " + newID);
                         String stringNewID = Integer.toString(newID);
 
-                        // Kreiranje objekta Klijent sa ispravnim ID-om
+
                         new Aranzman(stringNewID, naziv_putovanja, destinacija,prevoz,datum_polaska,datum_dolaska,cijena_aranzmana,Smjestaj_id);
                     }
                 } else {
@@ -452,14 +448,14 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Izlet uspešno dodat u bazu.");
 
-                    // Dobijanje generisanog ključa (ID)
+
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID Izleta racuna: " + newID);
                         String stringNewID = Integer.toString(newID);
 
-                        // Kreiranje objekta Izlet sa ispravnim ID-om
+
                         new Aranzman(stringNewID, naziv_izleta, destinacija, null, datum_polaska, null, cijena_izleta, null);
                     }
                 } else {
@@ -519,12 +515,12 @@ public class DBUtils {
                 System.out.println("Napravljeno za rezervacije");
             }
 
-            // Provera da li rezervacije već postoje u fajlu
+
             boolean rezervacijeVecUpisane = false;
             try (Scanner scanner = new Scanner(rezervacijeFile)) {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-                    // Prilagodite uslov provere na osnovu formata linije u fajlu
+
                     if (line.contains(aranzmanId)) {
                         rezervacijeVecUpisane = true;
                         break;
@@ -597,15 +593,6 @@ public class DBUtils {
     }
 
 
-
-
-
-
-    // =============================================================================================//
-    // otkazivanje putaovanja pokusaj?!//
-    // =============================================================================================//
-
-
     public static void otkaziPutovanje(String Aranzman_id) {
 
 
@@ -618,7 +605,7 @@ public class DBUtils {
                 System.out.println("Napravljen novi fajl za aranžmane");
             }
 
-            // Provera da li aranžman već postoji u fajlu
+
             boolean aranzmanVecUpisan = false;
             try (Scanner scanner = new Scanner(aranzmaniFile)) {
                 while (scanner.hasNextLine()) {
@@ -654,12 +641,12 @@ public class DBUtils {
                 System.out.println("Napravljeno za rezervacije");
             }
 
-            // Provera da li rezervacije već postoje u fajlu
+
             boolean rezervacijeVecUpisane = false;
             try (Scanner scanner = new Scanner(rezervacijeFile)) {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-                    // Prilagodite uslov provere na osnovu formata linije u fajlu
+
                     if (line.contains(Aranzman_id)) {
                         rezervacijeVecUpisane = true;
                         break;

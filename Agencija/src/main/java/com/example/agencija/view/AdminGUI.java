@@ -65,21 +65,16 @@ public class AdminGUI extends Kontroler implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources) {
 
-        // info tab
 
-
-
-
-        // aranzmani
         filterTipPutovanja.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 if (newValue.equals("Putovanje")) {
-                    // Onemogući određena polja
+
                     filterBrojZvjezdica.setDisable(false);
                     filterVrstaSobe.setDisable(false);
                     filterNacinPutovanja.setDisable(false);
                 } else if (newValue.equals("Izlet")) {
-                    // Onemogući određena polja
+
                     filterBrojZvjezdica.setDisable(true);
                     filterVrstaSobe.setDisable(true);
                     filterNacinPutovanja.setDisable(true);
@@ -89,8 +84,7 @@ public class AdminGUI extends Kontroler implements Initializable{
                     filterNacinPutovanja.setDisable(false);
                 }
 
-                    // Ako nije ni Putovanje ni Izlet, možete postaviti druge akcije po potrebi
-                    // Ovdje možete postaviti određene poruke ili akcije
+
                 }
             else{
                 filterBrojZvjezdica.setDisable(false);
@@ -119,12 +113,12 @@ public class AdminGUI extends Kontroler implements Initializable{
         filterNacinPutovanja.getItems().add("Autobus");
         filterNacinPutovanja.getItems().add("Samostalan");
 
-        // rezervacije
 
-        // Dodajte listener za otvaranje taba rezervacije
+
+
         tabRezervacije.setOnSelectionChanged(event -> {
             if (tabRezervacije.isSelected()) {
-                // Pozovite metodu koja će prikazati spisak svih rezervacija
+
                 prikaziRezervacije();
             }
         });
@@ -134,7 +128,7 @@ public class AdminGUI extends Kontroler implements Initializable{
 
 
 
-        // dodavanje
+
         dodavanjeTipPrevoza.getItems().add("Avion");
         dodavanjeTipPrevoza.getItems().add("Autobus");
         dodavanjeTipPrevoza.getItems().add("Samostalan");
@@ -151,7 +145,7 @@ public class AdminGUI extends Kontroler implements Initializable{
 
 
 
-        // brisanje
+
 
         brisanje.setOnSelectionChanged(event -> {
             if(brisanje.isSelected()){
@@ -160,7 +154,7 @@ public class AdminGUI extends Kontroler implements Initializable{
         });
 
 
-        //admini
+
         administratori.setOnSelectionChanged(event -> {
             if(administratori.isSelected()){
                 prikaziListuAdmina();
@@ -183,8 +177,7 @@ public class AdminGUI extends Kontroler implements Initializable{
     public void setAdmin(Admin admin) {
         this.adminKorisnik = admin;
 
-        // Ovdje dodajte kod za postavljanje informacija o administratoru koji je sada postavljen
-        // Na primer, možete ažurirati tekst u infoTextArea, kao što radite u initialize metodi.
+
         infoTextArea.appendText("Ime i prezime:\n");
         infoTextArea.appendText("\t" + adminKorisnik.getIme() + " " + adminKorisnik.getPrezime() + "\n\n");
         infoTextArea.appendText("Korisničko ime:\n");
@@ -192,19 +185,13 @@ public class AdminGUI extends Kontroler implements Initializable{
         int brojAdmina = Admin.brojSvihAdmina();
         infoTextArea.appendText("\t Ukupan broj admina " + brojAdmina + "\n\n");
 
-        // Ostatak koda koji se nalazi u initialize metodi, a odnosi se na postavljanje ComboBox-ova i drugih elemenata,
-        // takođe treba premestiti ovde ili ažurirati kako bi koristio informacije o adminu.
+
     }
 
-
-    //    private Admin getAdminInfo() {
-//        return admin;
-//    }
     public void odjavaDugme(ActionEvent event) {
         promijeniScenuLogin(event);
     }
 
-    // Promjeni lozinku tipka:
     public void promjeniLozinku() {
         if (infoStaraTextBox.getText().isEmpty()) {
             prozorObavjestenja("Greška", "Polje za staru lozinku je prazno!");
@@ -235,9 +222,8 @@ public class AdminGUI extends Kontroler implements Initializable{
         }
     }
 
-    //
     public void filtriraj(ActionEvent event) {
-        // Dobijanje vrijednosti iz polja za filtriranje
+
         double cijenaOd = 0.0;
         double cijenaDo = 0.0;
         String destinacija = "";
@@ -266,7 +252,6 @@ public class AdminGUI extends Kontroler implements Initializable{
 
                     destinacija = filterDestinacija.getText();
 
-                    // Provjera za LocalDate
                     datumKretanja = filterDatumKretanja.getValue();
                     datumPovratka = filterDatumPovratka.getValue();
 
@@ -282,28 +267,23 @@ public class AdminGUI extends Kontroler implements Initializable{
                     nacinPutovanja = filterNacinPutovanja.getValue();
 
 
-                    // Filtriranje aranžmana
                     List<String> filtriraniAranzmani = new ArrayList<>();
 
                     for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
-                        // Pronađi povezani smještaj
                         Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                        // Ovdje implementirajte uslov za filtriranje na osnovu unesenih kriterijuma
-                        // Primjer:
                         if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
-                                //                    && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja))
-                                //                    && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka))
+
                                 && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
                                 && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
                                 && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
                                 && (vrstaSobe == null || smjestaj.getVrstaSobe().equals(vrstaSobe))
                                 && (nacinPutovanja == null || aranzman.getPrevoz().equals(nacinPutovanja)) && (aranzman.getDatumDolaska() != null)) {
                             String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
-                            filtriraniAranzmani.add(listraFiltriranihAranzmana); // Dodajte željene informacije o aranžmanu u listu
+                            filtriraniAranzmani.add(listraFiltriranihAranzmana);
                         }
 
                     }
@@ -316,13 +296,12 @@ public class AdminGUI extends Kontroler implements Initializable{
                     System.out.println(destinacija);
                     System.out.println(cijenaDo);
                     System.out.println(cijenaOd);
-                    // Postavljanje filtriranih aranžmana u ListView
                     filterListaAranzmana.getItems().clear();
                     System.out.println(filtriraniAranzmani);
                     filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
                 } catch (NumberFormatException e) {
-                    // Obrada izuzetka, na primjer, prikazivanje korisniku poruke o pogrešnom unosu
-                    e.printStackTrace(); // Ovo se obično ne koristi u produkcijskom okruženju
+
+                    e.printStackTrace();
                 }
             } else if (tipPutovanja.equals("Izlet")) {
                 try {
@@ -338,7 +317,7 @@ public class AdminGUI extends Kontroler implements Initializable{
 
                     destinacija = filterDestinacija.getText();
 
-                    // Provjera za LocalDate
+
                     datumKretanja = filterDatumKretanja.getValue();
                     datumPovratka = filterDatumPovratka.getValue();
 
@@ -350,28 +329,20 @@ public class AdminGUI extends Kontroler implements Initializable{
                     }
 
 
-
-
-                    // Filtriranje aranžmana
                     List<String> filtriraniAranzmani = new ArrayList<>();
 
                     for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
-                        // Pronađi povezani smještaj
                         Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                        // Ovdje implementirajte uslov za filtriranje na osnovu unesenih kriterijuma
-                        // Primjer:
                         if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
-                                //                    && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja))
-                                //                    && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka))
                                 && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
                                 && (datumPovratka == null || aranzman.getDatumPolaska().equals(datumPovratka1) || aranzman.getDatumPolaska().before(datumPovratka1))
                                 && (aranzman.getDatumDolaska() == null)) {
                             String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
-                            filtriraniAranzmani.add(listraFiltriranihAranzmana); // Dodajte željene informacije o aranžmanu u listu
+                            filtriraniAranzmani.add(listraFiltriranihAranzmana);
                         }
 
                     }
@@ -385,13 +356,12 @@ public class AdminGUI extends Kontroler implements Initializable{
                     System.out.println(cijenaDo);
                     System.out.println(cijenaOd);
 
-                    // Postavljanje filtriranih aranžmana u ListView
                     filterListaAranzmana.getItems().clear();
                     System.out.println(filtriraniAranzmani);
                     filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
                 } catch (NumberFormatException e) {
-                    // Obrada izuzetka, na primjer, prikazivanje korisniku poruke o pogrešnom unosu
-                    e.printStackTrace(); // Ovo se obično ne koristi u produkcijskom okruženju
+
+                    e.printStackTrace();
                 }
 
             } else {
@@ -408,7 +378,6 @@ public class AdminGUI extends Kontroler implements Initializable{
 
                     destinacija = filterDestinacija.getText();
 
-                    // Provjera za LocalDate
                     datumKretanja = filterDatumKretanja.getValue();
                     datumPovratka = filterDatumPovratka.getValue();
 
@@ -425,28 +394,24 @@ public class AdminGUI extends Kontroler implements Initializable{
                     nacinPutovanja = filterNacinPutovanja.getValue();
 
 
-                    // Filtriranje aranžmana
                     List<String> filtriraniAranzmani = new ArrayList<>();
 
                     for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
-                        // Pronađi povezani smještaj
                         Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                        // Ovdje implementirajte uslov za filtriranje na osnovu unesenih kriterijuma
-                        // Primjer:
+
                         if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
-                                //                    && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja))
-                                //                    && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka))
+
                                 && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
                                 && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
                                 && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
                                 && (vrstaSobe == null || smjestaj.getVrstaSobe().equals(vrstaSobe))
                                 && (nacinPutovanja == null || aranzman.getPrevoz().equals(nacinPutovanja))) {
                             String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
-                            filtriraniAranzmani.add(listraFiltriranihAranzmana); // Dodajte željene informacije o aranžmanu u listu
+                            filtriraniAranzmani.add(listraFiltriranihAranzmana);
                         }
 
                     }
@@ -461,14 +426,12 @@ public class AdminGUI extends Kontroler implements Initializable{
                     System.out.println(cijenaDo);
                     System.out.println(cijenaOd);
 
-
-                    // Postavljanje filtriranih aranžmana u ListView
                     filterListaAranzmana.getItems().clear();
                     System.out.println(filtriraniAranzmani);
                     filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
                 } catch (NumberFormatException e) {
-                    // Obrada izuzetka, na primjer, prikazivanje korisniku poruke o pogrešnom unosu
-                    e.printStackTrace(); // Ovo se obično ne koristi u produkcijskom okruženju
+
+                    e.printStackTrace();
                 }
             }
         }
@@ -486,7 +449,6 @@ public class AdminGUI extends Kontroler implements Initializable{
 
                 destinacija = filterDestinacija.getText();
 
-                // Provjera za LocalDate
                 datumKretanja = filterDatumKretanja.getValue();
                 datumPovratka = filterDatumPovratka.getValue();
 
@@ -502,28 +464,26 @@ public class AdminGUI extends Kontroler implements Initializable{
                 nacinPutovanja = filterNacinPutovanja.getValue();
 
 
-                // Filtriranje aranžmana
+
                 List<String> filtriraniAranzmani = new ArrayList<>();
 
                 for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
-                    // Pronađi povezani smještaj
+
                     Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                    // Ovdje implementirajte uslov za filtriranje na osnovu unesenih kriterijuma
-                    // Primjer:
+
                     if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
                             && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                             && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
-                            //                    && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja))
-                            //                    && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka))
+
                             && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
                             && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
                             && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
                             && (vrstaSobe == null || smjestaj.getVrstaSobe().equals(vrstaSobe))
                             && (nacinPutovanja == null || aranzman.getPrevoz().equals(nacinPutovanja))) {
                         String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
-                        filtriraniAranzmani.add(listraFiltriranihAranzmana); // Dodajte željene informacije o aranžmanu u listu
+                        filtriraniAranzmani.add(listraFiltriranihAranzmana);
                     }
 
                 }
@@ -539,13 +499,13 @@ public class AdminGUI extends Kontroler implements Initializable{
                 System.out.println(cijenaOd);
 
 
-                // Postavljanje filtriranih aranžmana u ListView
+
                 filterListaAranzmana.getItems().clear();
                 System.out.println(filtriraniAranzmani);
                 filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
             } catch (NumberFormatException e) {
-                // Obrada izuzetka, na primjer, prikazivanje korisniku poruke o pogrešnom unosu
-                e.printStackTrace(); // Ovo se obično ne koristi u produkcijskom okruženju
+
+                e.printStackTrace();
             }
         }
 
@@ -556,14 +516,13 @@ public class AdminGUI extends Kontroler implements Initializable{
 
 
     private void prikaziRezervacije() {
-        // Sortiranje rezervacija prema KlijentID
+
         Aranzman.sviAranzmani.sort(Comparator.comparing(Aranzman::getId));
 
-        // Prikazivanje naziva rezervacija u ListView
-        rezervacijeLista.getItems().clear(); // Očisti postojeće stavke u listi
+        rezervacijeLista.getItems().clear();
 
         for (Aranzman aranzman : sviAranzmani) {
-            // Dodajte naziv rezervacije u listu   // trebam formatirati da bude kao sto zadatak trazi
+
             rezervacijeLista.getItems().add("Aranzman ID: " + aranzman.getId());
         }
     }
@@ -615,16 +574,7 @@ public class AdminGUI extends Kontroler implements Initializable{
         }
 
         rezervacijeListaKlijenata.setText(sb.toString());
-//        String klijenti = "";
-//        for (Rezervacija rezervacija : Rezervacija.sveRezervacije) {
-//            if (rezervacija.getAranzmanID().equals(rezervacijaId)) {
-//                // Get the client details (replace with your actual logic to retrieve client information)
-//                String klijentIme = "Klijent 1"; // Example
-//                String klijentPrezime = "Prezime 1"; // Example
-//                klijenti += klijentIme + " " + klijentPrezime + "\n";
-//            }
-//        }
-//        rezervacijeListaKlijenata.setText(klijenti);
+
     }
 
 
@@ -686,7 +636,7 @@ public class AdminGUI extends Kontroler implements Initializable{
         }else if (datumPovratkaPutovanja == null) {
             prozorObavjestenja("Greška", "Datum polaska putovanja je prazno polje");
         } else {
-            // Poziv metode za dodavanje putovanja u bazu
+
 
             DBUtils.dodajAranzmanDB(id,nazivPutovanja,destinacijaPutovanja,tipPrevoza,datumPolaskaPutovanja,datumPovratkaPutovanja,cijenaPutovanja,id);
         }
@@ -696,15 +646,14 @@ public class AdminGUI extends Kontroler implements Initializable{
     public void prikaziListuAranzmana(){
         ArrayList<Aranzman> sviAranzmani = getSviAranzmani();
 
-        // Pretvorite ArrayList<Aranzman> u ArrayList<String>
         ArrayList<String> listaAranzmana = new ArrayList<>();
         for (Aranzman aranzman : sviAranzmani) {
-            // Ovde dodajte logiku kako želite da prikažete svaki aranžman kao string
+
             String aranzmanString = aranzman.getId()+" - "+ aranzman.getNazivPutovanja() + " - " + aranzman.getDestinacija();
             listaAranzmana.add(aranzmanString);
         }
 
-        // Postavite vrednosti u ListView
+
         brisanjeListaAranzmana.setItems(FXCollections.observableArrayList(listaAranzmana));
     }
 
@@ -716,15 +665,13 @@ public class AdminGUI extends Kontroler implements Initializable{
             System.out.println(selektovaniAranzman);
             int indexPrvogZnaka = selektovaniAranzman.indexOf("-");
 
-            // Izdvajanje prvog dela stringa
             String id = selektovaniAranzman.substring(0, indexPrvogZnaka).trim();
-            // Pozovite funkciju za brisanje aranžmana, prosleđujući selektovaniAranzman
+
             otkaziPutovanje(id);
 
-            // Obrisati odabrani aranžman iz liste
             brisanjeListaAranzmana.getItems().remove(selektovaniAranzman);
         } else {
-            // Ako nije selektovan nijedan aranžman, možete prikazati poruku ili obavestiti korisnika
+
             System.out.println("Molimo vas da selektujete aranžman za brisanje.");
         }
     }
@@ -732,15 +679,14 @@ public class AdminGUI extends Kontroler implements Initializable{
     public void prikaziListuAdmina(){
         ArrayList<Admin> sviAdmini = getSviAdmini();
 
-        // Pretvorite ArrayList<Aranzman> u ArrayList<String>
+
         ArrayList<String> listaAdmina = new ArrayList<>();
         for (Admin admin : sviAdmini) {
-            // Ovde dodajte logiku kako želite da prikažete svaki aranžman kao string
+
             String adminString = admin.getadminID()+" - "+ admin.getIme() + " - " + admin.getPrezime();
             listaAdmina.add(adminString);
         }
 
-        // Postavite vrednosti u ListView
         adminSpisakadmina.setItems(FXCollections.observableArrayList(listaAdmina));
     }
 
@@ -769,10 +715,10 @@ public class AdminGUI extends Kontroler implements Initializable{
 
             ArrayList<Admin> sviAdmini = getSviAdmini();
 
-            // Pretvorite ArrayList<Aranzman> u ArrayList<String>
+
             ArrayList<String> listaAdmina = new ArrayList<>();
             for (Admin admin : sviAdmini) {
-                // Ovde dodajte logiku kako želite da prikažete svaki aranžman kao string
+
                 String adminString = admin.getadminID()+" - "+ admin.getIme() + " - " + admin.getPrezime();
                 listaAdmina.add(adminString);
             }
@@ -780,7 +726,7 @@ public class AdminGUI extends Kontroler implements Initializable{
 
             String adminString = "" + id + " - " + ime + " - " + prezime;
             listaAdmina.add(adminString);
-            //adminSpisakadmina.setItems(listaAdmina);
+
             adminSpisakadmina.setItems(FXCollections.observableArrayList(listaAdmina));
         }
     }

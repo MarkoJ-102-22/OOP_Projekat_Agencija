@@ -60,7 +60,7 @@ public class Bankovni_racun {
                 return br;
             }
         }
-        return null; // Vraća null ako račun sa zadatim brojem nije pronađen
+        return null;
     }
 
     public Double getStanje() {

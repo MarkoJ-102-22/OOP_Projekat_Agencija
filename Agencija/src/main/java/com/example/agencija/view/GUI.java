@@ -14,7 +14,7 @@ public class GUI extends Application implements View {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/agencija/viev/log-in.fxml"));
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("log-in.fxml"));
         System.out.println();
         Scene scene = new Scene(fxmlLoader.load());

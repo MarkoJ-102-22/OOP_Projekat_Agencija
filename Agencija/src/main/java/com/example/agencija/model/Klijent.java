@@ -50,7 +50,7 @@ public class Klijent {
         return false;
     }
 
-    //pravim sve getere pre
+
     public int getKlijentID() {
         return klijentID;
     }
@@ -94,7 +94,6 @@ public class Klijent {
         return sviKlijenti;
     }
 
-    //mislim zasad da samo sifra treba od setera jer se trazi mogucnost zaboravljenja sifra
     public void setKlijentSifra(String sifra) {
         this.sifra = sifra;
     }

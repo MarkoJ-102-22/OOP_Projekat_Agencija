@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Smjestaj {
     private final int SmjestajID;
     private final String SmjestajIme;
-   //mozda ne mora fina brojZvjezdica
+
     private final String brojZvjezdica;
     private String vrstaSobe;
     private String cijenaPoNocenju;
@@ -63,7 +63,7 @@ public class Smjestaj {
                 return smjestaj;
             }
         }
-        return null; // Vratite null ako ne pronađete smještaj s odgovarajućim ID-om
+        return null;
     }
 
     public static int brojSvihSoba() {

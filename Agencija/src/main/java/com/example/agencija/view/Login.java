@@ -40,7 +40,7 @@ public class Login extends Kontroler implements Initializable {
             String sifra = userpassInput.getText();
             validateInput(korisnickoime,sifra);
             String username = usernameInput.getText();
-            String password = hesirajLozinku(userpassInput.getText());//DBUtils.getHashValue()
+            String password = hesirajLozinku(userpassInput.getText());
             Klijent klijent = Klijent.getKlijentDuze(username,sifra);
 
             Admin admin = Admin.getAdminDuze(username,sifra);
@@ -76,13 +76,13 @@ public class Login extends Kontroler implements Initializable {
                 Parent adminParent;
                 FXMLLoader loader = null;
                 try {
-                    //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(""));
+
                     loader = new FXMLLoader(getClass().getResource("admin.fxml"));
                     System.out.println(loader.getLocation().getPath());
                     System.out.println(loader);
                     adminParent= loader.load();
 
-                    AdminGUI adminController = loader.getController();  // Dohvati kontroler nakon što je FXML učitan
+                    AdminGUI adminController = loader.getController();
                     adminController.setAdmin(admin);
 
 
@@ -105,21 +105,6 @@ public class Login extends Kontroler implements Initializable {
                 loginErrorMsg.setText("Pogresna lozinka ili korisnicko ime!");
             }
 
-//            if (validateInput(username, password)) {
-//                password = DBUtils.getHashValue(password);
-//                Klijent klijent = Klijent.getKlijent(username, password);
-//                Admin admin = Admin.getAdmin(username, password);
-//
-//                if (klijent != null) {
-//                    Kontroler.promjenaScene(event, "klijent.fxml", "Agencija | Početna stranica", klijent, null);
-//                } else if (admin != null) {
-//                    Kontroler.promjenaScene(event, "admin.fxml", "Agencija | Početna stranica", null, admin);
-//                } else {
-//                    usernameInput.setText("");
-//                    userpassInput.setText("");
-//                    loginErrorMsg.setText("Ne postoji korisnik sa datim podacima.");
-//                }
-//            }
         });
 
 

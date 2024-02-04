@@ -22,43 +22,6 @@ import java.util.Objects;
 public class Kontroler {
 
 
-//    public static void promjenaSceneAdmin(ActionEvent event, String fxmlFileName, String title, Klijent klijent, Admin admin) {
-//
-//        Parent root = null;
-//        if (klijent != null) {
-//            try {
-//                FXMLLoader fxmlLoader = new FXMLLoader(Kontroler.class.getResource(fxmlFileName));
-//                root = fxmlLoader.load();
-//                AdminGUI prijavljen = fxmlLoader.getController();
-//                prijavljen.(klijent);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } else if (admin != null) {
-//            try {
-//                FXMLLoader fxmlLoader = new FXMLLoader(Kontroler.class.getResource(fxmlFileName));
-//                root = fxmlLoader.load();
-//                Prijavljen prijavljen = fxmlLoader.getController();
-//                prijavljen.postaviAdminInfo(admin);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            try {
-//                root = FXMLLoader.load(Kontroler.class.getResource(fxmlFileName));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.setTitle(title);
-//        stage.setScene(new Scene(root));
-//        stage.show();
-//
-//    }
-
-
     @FXML
     protected void promijeniScenuLogin(ActionEvent event) {
         try {

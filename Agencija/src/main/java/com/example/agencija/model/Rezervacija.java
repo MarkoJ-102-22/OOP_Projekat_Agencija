@@ -63,7 +63,7 @@ public class Rezervacija {
                 return rezervacija;
             }
         }
-        return null; // Vraća null ako rezervacija nije pronađena
+        return null;
     }
     public void setUkupnaCijena(String ukupnaCijena) {
         this.ukupnaCijena = ukupnaCijena;

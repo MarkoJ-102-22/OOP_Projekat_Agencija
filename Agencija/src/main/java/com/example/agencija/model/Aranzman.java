@@ -107,13 +107,13 @@ public class Aranzman {
             int aranzmanId;
             try {
                 aranzmanId = Integer.parseInt(aranzmanIdString);
-                // Sada možete koristiti aranzmanId kao int vrednost
+
                 System.out.println("Aranzman ID kao int: " + aranzmanId);
                 if (aranzmanId > maxKlijentID) {
                     maxKlijentID = aranzmanId;
                 }
             } catch (NumberFormatException e) {
-                // Ako nije moguće parsirati String u int
+
                 System.out.println("Nije moguće pretvoriti String u int.");
             }
 
@@ -126,12 +126,12 @@ public class Aranzman {
         for (Aranzman ar : sviAranzmani) {
             String aranzmanIdString = ar.getId();
             if (aranzmanIdString.equals(targetId)) {
-                // Pronađen je aranžman sa traženim ID-om
+
                 return ar;
             }
         }
 
-        // Ako nije pronađen aranžman sa traženim ID-om, možete vratiti null ili neku drugu indikaciju
+
         return null;
     }
 
