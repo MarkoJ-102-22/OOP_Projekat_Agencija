@@ -61,6 +61,7 @@ public class Registracija extends Kontroler {
                             password.setText("");
                             passwordConfirmation.setText("");
                             promijeniScenuLogin(event);
+                            DBUtils.getDataFromDB();
                         }
                         else{
                          //   prozorObavjestenja("Greška", "Ne postoji jmbg koji se podudara");
