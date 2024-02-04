@@ -63,7 +63,7 @@ public class Registracija extends Kontroler {
                             promijeniScenuLogin(event);
                         }
                         else{
-                            prozorObavjestenja("Greška", "Ne postoji jmbg koji se podudara");
+                         //   prozorObavjestenja("Greška", "Ne postoji jmbg koji se podudara");
                         }
                     }
 
