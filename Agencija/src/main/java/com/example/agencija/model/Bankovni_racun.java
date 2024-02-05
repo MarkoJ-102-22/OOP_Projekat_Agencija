@@ -81,7 +81,6 @@ public class Bankovni_racun {
 
         try {
             String query = "UPDATE Bankovni_racun SET stanje = stanje + ? WHERE id = ?";
-            //UPDATE `bankovni_racun` SET `stanje` = '5555.00' WHERE `bankovni_racun`.`id` = 3;
             try (PreparedStatement statement = dr.getConn().prepareStatement(query)) {
                 statement.setDouble(1, iznos);
                 statement.setString(2, "11");
@@ -107,7 +106,6 @@ public class Bankovni_racun {
 
         try {
             String query = "UPDATE Bankovni_racun SET stanje = stanje - ? WHERE id = ?";
-            //UPDATE `bankovni_racun` SET `stanje` = '5555.00' WHERE `bankovni_racun`.`id` = 3;
             try (PreparedStatement statement = dr.getConn().prepareStatement(query)) {
                 statement.setDouble(1, iznos);
                 statement.setString(2, "11");
@@ -177,5 +175,9 @@ public class Bankovni_racun {
         } finally {
             dr.endConnection();
         }
+    }
+
+    public static void ocistiSveRacune() {
+        sviBankovniRacuni.clear();
     }
 }

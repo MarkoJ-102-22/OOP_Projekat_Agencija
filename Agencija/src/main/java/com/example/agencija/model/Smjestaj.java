@@ -12,31 +12,45 @@ public class Smjestaj {
 
     public static ArrayList<Smjestaj> sviSmjestajevi = new ArrayList<>();
 
-    public Smjestaj(int smjestajID, String smjestajIme, String brojZvjezdica,String vrstaSobe, String cijenaPoNocenju) throws Exception {
+    public Smjestaj(int smjestajID, String smjestajIme, String brojZvjezdica, String vrstaSobe, String cijenaPoNocenju) throws Exception {
         SmjestajID = smjestajID;
         SmjestajIme = smjestajIme;
         this.brojZvjezdica = brojZvjezdica;
         this.vrstaSobe = vrstaSobe;
         this.cijenaPoNocenju = cijenaPoNocenju;
+//
+//        if (!postojiSm(this)) {
+//            sviSmjestajevi.add(this);
+//        } else {
+//
+//            // throw new Exception("Postoji adminski nalog sa zadatim podacima!");
+//        }
+    }
 
-        if (!postojiSm(this)) {
-            sviSmjestajevi.add(this);
-        } else {
-            throw new Exception("Postoji adminski nalog sa zadatim podacima!");
-        }
+    public static void dodajNoviSmjestaj(Smjestaj smjesta) {
+        sviSmjestajevi.add(smjesta);
     }
 
     private boolean postojiSm(Smjestaj data) {
         if (sviSmjestajevi != null) {
             for (Smjestaj sm : sviSmjestajevi) {
-                if (sm.SmjestajID != data.SmjestajID ) {
+                if (sm.getSmjestajIme().equals(data.SmjestajIme)) {
                     return true;
+                } else if (sm.brojZvjezdica.equals(data.brojZvjezdica)) {
+                    return true;
+                } else if (sm.vrstaSobe.equals(data.vrstaSobe)) {
+                    return true;
+                } else if (sm.cijenaPoNocenju.equals(data.cijenaPoNocenju)) {
+                    return true;
+                } else {
+                    return false;
                 }
             }
         }
 
         return false;
     }
+
     public int getSmjestajID() {
         return SmjestajID;
     }
@@ -72,5 +86,9 @@ public class Smjestaj {
 
     public void setCijenaPoNocenju(String cijenaPoNocenju) {
         this.cijenaPoNocenju = cijenaPoNocenju;
+    }
+
+    public static void ocistiSveSmjestajeve() {
+        sviSmjestajevi.clear();
     }
 }

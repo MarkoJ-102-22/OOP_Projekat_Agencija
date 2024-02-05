@@ -20,7 +20,7 @@ public class Rezervacija {
         if (!postojiRe(this)) {
             sveRezervacije.add(this);
         } else {
-            //throw new Exception("Postoji adminski nalog sa zadatim podacima!");
+
         }
     }
 
@@ -80,4 +80,9 @@ public class Rezervacija {
                 " - " + ukupnaCijena +
                 " - " + placenaCijena;
     }
+
+    public static void ocistiSveRezervacije() {
+        sveRezervacije.clear();
+    }
+
 }

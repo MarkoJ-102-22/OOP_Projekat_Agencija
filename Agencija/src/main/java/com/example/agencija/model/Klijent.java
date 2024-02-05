@@ -50,7 +50,6 @@ public class Klijent {
         return false;
     }
 
-
     public int getKlijentID() {
         return klijentID;
     }
@@ -122,7 +121,6 @@ public class Klijent {
 
 
     public static Klijent getKlijentDuze(String korisnickoIme, String sifra) {
-        //System.out.println(korisnickoIme + " " + sifra);
         for (Klijent k : sviKlijenti) {
             if (k.getKorisnickoIme().equals(korisnickoIme) && k.getSifra().equals(sifra)) {
                 return k;
@@ -137,6 +135,9 @@ public class Klijent {
         return null;
     }
 
+    public static void ocistiSveKlijente() {
+        sviKlijenti.clear();
+    }
 
 
 }

@@ -163,5 +163,9 @@ public class Aranzman {
                 " - " + cijenaAranzmana +
                 " - " + smjestajId;
     }
+
+    public static void ocistiSveAranzmane() {
+        sviAranzmani.clear();
+    }
 }
 

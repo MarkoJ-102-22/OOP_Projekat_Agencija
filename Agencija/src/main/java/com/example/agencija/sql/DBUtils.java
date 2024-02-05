@@ -37,6 +37,7 @@ public class DBUtils {
 
     private static void getKlijentiDB(){
         try{
+            Klijent.ocistiSveKlijente();
             Statement statement = dr.getConn().createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Klijent");
 
@@ -54,6 +55,7 @@ public class DBUtils {
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
         catch (Exception e) {
@@ -67,7 +69,7 @@ public class DBUtils {
         try {
             String query = "UPDATE Klijent SET lozinka = ? WHERE id = ?";
             try (PreparedStatement statement = dr.getConn().prepareStatement(query)) {
-                //mogu dodati da se hesira sifra ali to onda trebam promjeniti da se prilikom login salje heshirana lozinka
+
                 statement.setString(1, nova_lozinka);
                 statement.setInt(2, klijentID);
                 int affectedRows = statement.executeUpdate();
@@ -91,6 +93,7 @@ public class DBUtils {
 
     private static void getAdminiDB(){
         try{
+            Admin.ocistiSveAdmine();
             Statement statement = dr.getConn().createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Admin");
 
@@ -105,7 +108,9 @@ public class DBUtils {
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -117,7 +122,7 @@ public class DBUtils {
         try {
             String query = "UPDATE Admin SET lozinka = ? WHERE id = ?";
             try (PreparedStatement statement = dr.getConn().prepareStatement(query)) {
-                //mogu dodati da se hesira sifra ali to onda trebam promjeniti da se prilikom login salje heshirana lozinka
+
                 statement.setString(1, nova_lozinka);
                 statement.setInt(2, adminID);
                 int affectedRows = statement.executeUpdate();
@@ -138,6 +143,7 @@ public class DBUtils {
 
     private static void getAranzmaniDB(){
         try{
+            Aranzman.ocistiSveAranzmane();
             Statement statement = dr.getConn().createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Aranzman");
 
@@ -164,6 +170,7 @@ public class DBUtils {
 
     private static void getBankovniRacuniDB(){
         try{
+            Bankovni_racun.ocistiSveRacune();
             Statement statement = dr.getConn().createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Bankovni_racun");
 
@@ -186,6 +193,7 @@ public class DBUtils {
 
     private static void getRezervacijeDB(){
         try{
+            Rezervacija.ocistiSveRezervacije();
             Statement statement = dr.getConn().createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Rezervacija");
 
@@ -209,6 +217,7 @@ public class DBUtils {
 
     private static void getSmejstajeviDB(){
         try{
+            Smjestaj.ocistiSveSmjestajeve();
             Statement statement = dr.getConn().createStatement();
             ResultSet resultSet = statement.executeQuery("select * from Smjestaj");
 
@@ -220,7 +229,8 @@ public class DBUtils {
                 String cjena_po_nocenju= resultSet.getString("cjena_po_nocenju");
 
 
-                new Smjestaj(id,naziv,broj_zvjezdica,vrsta_sobe,cjena_po_nocenju);
+//                new Smjestaj(id,naziv,broj_zvjezdica,vrsta_sobe,cjena_po_nocenju);
+                Smjestaj.dodajNoviSmjestaj(new Smjestaj(id,naziv,broj_zvjezdica,vrsta_sobe,cjena_po_nocenju));
             }
 
         } catch (SQLException e) {
@@ -252,12 +262,10 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Klijent uspešno dodat u bazu.");
 
-
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID klijenta: " + newID);
-
 
                         new Klijent(newID, ime, prezime, broj_telefona, jmbg, broj_racuna, korisnickoIme, lozinka);
                     }
@@ -295,7 +303,6 @@ public class DBUtils {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID admina: " + newID);
 
-
                         new Admin(newID, ime, prezime,korisnicko_ime, lozinka);
                     }
                 } else {
@@ -327,14 +334,13 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Smjestaj uspešno dodat u bazu.");
 
-
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID smjestaja: " + newID);
 
 
-                        new Smjestaj(newID, naziv, broj_zvjezdica,vrsta_sobe, cjena_po_nocenju);
+                        Smjestaj.dodajNoviSmjestaj(new Smjestaj(newID, naziv, broj_zvjezdica,vrsta_sobe, cjena_po_nocenju));
                     }
                 } else {
                     System.out.println("Nije uspelo dodavanje smjestaja u bazu.");
@@ -364,12 +370,10 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Bankovni racun uspešno dodat u bazu.");
 
-
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID bankovnog racuna: " + newID);
-
 
                         new Bankovni_racun(newID, broj_racuna, jmbg,stanje);
                     }
@@ -405,13 +409,11 @@ public class DBUtils {
                 if (affectedRows > 0) {
                     System.out.println("Aranzman uspešno dodat u bazu.");
 
-
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID Aranzmana racuna: " + newID);
                         String stringNewID = Integer.toString(newID);
-
 
                         new Aranzman(stringNewID, naziv_putovanja, destinacija,prevoz,datum_polaska,datum_dolaska,cijena_aranzmana,Smjestaj_id);
                     }
@@ -437,24 +439,22 @@ public class DBUtils {
                 statement.setInt(1, id);
                 statement.setString(2, naziv_izleta);
                 statement.setString(3, destinacija);
-                statement.setNull(4, Types.VARCHAR); // prevoz
+                statement.setNull(4, Types.VARCHAR);
                 statement.setDate(5, (java.sql.Date) datum_polaska);
-                statement.setNull(6, Types.DATE); // datum_dolaska
+                statement.setNull(6, Types.DATE);
                 statement.setString(7, cijena_izleta);
-                statement.setNull(8, Types.INTEGER); // Smjestaj_id
+                statement.setNull(8, Types.INTEGER);
 
                 int affectedRows = statement.executeUpdate();
 
                 if (affectedRows > 0) {
                     System.out.println("Izlet uspešno dodat u bazu.");
 
-
                     ResultSet rs = statement.getGeneratedKeys();
                     if (rs.next()) {
                         int newID = rs.getInt(1);
                         System.out.println("Novi ID Izleta racuna: " + newID);
                         String stringNewID = Integer.toString(newID);
-
 
                         new Aranzman(stringNewID, naziv_izleta, destinacija, null, datum_polaska, null, cijena_izleta, null);
                     }
@@ -515,12 +515,10 @@ public class DBUtils {
                 System.out.println("Napravljeno za rezervacije");
             }
 
-
             boolean rezervacijeVecUpisane = false;
             try (Scanner scanner = new Scanner(rezervacijeFile)) {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-
                     if (line.contains(aranzmanId)) {
                         rezervacijeVecUpisane = true;
                         break;
@@ -581,7 +579,7 @@ public class DBUtils {
             byte[] bytesOfPassword = password.getBytes(StandardCharsets.UTF_8);
             byte[] hash = md5.digest(bytesOfPassword);
 
-            // Convert hash into HEX value
+
             for (byte b : hash) {
                 sb.append(String.format("%02x", b));
             }
@@ -591,6 +589,7 @@ public class DBUtils {
 
         return sb.toString();
     }
+
 
 
     public static void otkaziPutovanje(String Aranzman_id) {
@@ -604,7 +603,6 @@ public class DBUtils {
                 aranzmaniFile.createNewFile();
                 System.out.println("Napravljen novi fajl za aranžmane");
             }
-
 
             boolean aranzmanVecUpisan = false;
             try (Scanner scanner = new Scanner(aranzmaniFile)) {

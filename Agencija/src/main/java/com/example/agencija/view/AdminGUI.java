@@ -66,15 +66,18 @@ public class AdminGUI extends Kontroler implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
 
 
+
+
+
+
+
         filterTipPutovanja.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 if (newValue.equals("Putovanje")) {
-
                     filterBrojZvjezdica.setDisable(false);
                     filterVrstaSobe.setDisable(false);
                     filterNacinPutovanja.setDisable(false);
                 } else if (newValue.equals("Izlet")) {
-
                     filterBrojZvjezdica.setDisable(true);
                     filterVrstaSobe.setDisable(true);
                     filterNacinPutovanja.setDisable(true);
@@ -83,7 +86,6 @@ public class AdminGUI extends Kontroler implements Initializable{
                     filterVrstaSobe.setDisable(false);
                     filterNacinPutovanja.setDisable(false);
                 }
-
 
                 }
             else{
@@ -94,26 +96,24 @@ public class AdminGUI extends Kontroler implements Initializable{
             });
 
 
-        filterTipPutovanja.getItems().add("");
+        filterTipPutovanja.getItems().add(null);
         filterTipPutovanja.getItems().add("Izlet");
         filterTipPutovanja.getItems().add("Putovanje");
 
-        filterBrojZvjezdica.getItems().add("");
+        filterBrojZvjezdica.getItems().add(null);
         filterBrojZvjezdica.getItems().add("Tri");
         filterBrojZvjezdica.getItems().add("Cetiri");
         filterBrojZvjezdica.getItems().add("Pet");
 
-        filterVrstaSobe.getItems().add("");
+        filterVrstaSobe.getItems().add(null);
         filterVrstaSobe.getItems().add("Jednokrevetna");
         filterVrstaSobe.getItems().add("Dvokrevetna");
         filterVrstaSobe.getItems().add("Trokrevetna");
 
-        filterNacinPutovanja.getItems().add("");
+        filterNacinPutovanja.getItems().add(null);
         filterNacinPutovanja.getItems().add("Avion");
         filterNacinPutovanja.getItems().add("Autobus");
         filterNacinPutovanja.getItems().add("Samostalan");
-
-
 
 
         tabRezervacije.setOnSelectionChanged(event -> {
@@ -122,9 +122,6 @@ public class AdminGUI extends Kontroler implements Initializable{
                 prikaziRezervacije();
             }
         });
-
-
-
 
 
 
@@ -145,14 +142,11 @@ public class AdminGUI extends Kontroler implements Initializable{
 
 
 
-
-
         brisanje.setOnSelectionChanged(event -> {
             if(brisanje.isSelected()){
                 prikaziListuAranzmana();
             }
         });
-
 
 
         administratori.setOnSelectionChanged(event -> {
@@ -188,10 +182,11 @@ public class AdminGUI extends Kontroler implements Initializable{
 
     }
 
+
+
     public void odjavaDugme(ActionEvent event) {
         promijeniScenuLogin(event);
     }
-
     public void promjeniLozinku() {
         if (infoStaraTextBox.getText().isEmpty()) {
             prozorObavjestenja("Greška", "Polje za staru lozinku je prazno!");
@@ -222,6 +217,7 @@ public class AdminGUI extends Kontroler implements Initializable{
         }
     }
 
+
     public void filtriraj(ActionEvent event) {
 
         double cijenaOd = 0.0;
@@ -238,6 +234,7 @@ public class AdminGUI extends Kontroler implements Initializable{
 
         tipPutovanja=filterTipPutovanja.getValue();
         if (tipPutovanja != null) {
+            System.out.println(tipPutovanja);
             if (tipPutovanja.equals("Putovanje")) {
                 try {
                     String cijenaOdText = filterCijenaOd.getText();
@@ -251,6 +248,7 @@ public class AdminGUI extends Kontroler implements Initializable{
                     }
 
                     destinacija = filterDestinacija.getText();
+
 
                     datumKretanja = filterDatumKretanja.getValue();
                     datumPovratka = filterDatumPovratka.getValue();
@@ -267,13 +265,16 @@ public class AdminGUI extends Kontroler implements Initializable{
                     nacinPutovanja = filterNacinPutovanja.getValue();
 
 
+
                     List<String> filtriraniAranzmani = new ArrayList<>();
 
                     for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
+
                         Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                        if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
+
+                        if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
 
@@ -296,6 +297,7 @@ public class AdminGUI extends Kontroler implements Initializable{
                     System.out.println(destinacija);
                     System.out.println(cijenaDo);
                     System.out.println(cijenaOd);
+
                     filterListaAranzmana.getItems().clear();
                     System.out.println(filtriraniAranzmani);
                     filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
@@ -329,15 +331,21 @@ public class AdminGUI extends Kontroler implements Initializable{
                     }
 
 
+
+
+
                     List<String> filtriraniAranzmani = new ArrayList<>();
 
                     for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
-                        Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
+
+//                        Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
+
 
                         if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+
                                 && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
                                 && (datumPovratka == null || aranzman.getDatumPolaska().equals(datumPovratka1) || aranzman.getDatumPolaska().before(datumPovratka1))
                                 && (aranzman.getDatumDolaska() == null)) {
@@ -355,6 +363,7 @@ public class AdminGUI extends Kontroler implements Initializable{
                     System.out.println(destinacija);
                     System.out.println(cijenaDo);
                     System.out.println(cijenaOd);
+
 
                     filterListaAranzmana.getItems().clear();
                     System.out.println(filtriraniAranzmani);
@@ -378,6 +387,7 @@ public class AdminGUI extends Kontroler implements Initializable{
 
                     destinacija = filterDestinacija.getText();
 
+
                     datumKretanja = filterDatumKretanja.getValue();
                     datumPovratka = filterDatumPovratka.getValue();
 
@@ -394,14 +404,16 @@ public class AdminGUI extends Kontroler implements Initializable{
                     nacinPutovanja = filterNacinPutovanja.getValue();
 
 
+
                     List<String> filtriraniAranzmani = new ArrayList<>();
 
                     for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
+
                         Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
 
-                        if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
+                        if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
 
@@ -426,7 +438,9 @@ public class AdminGUI extends Kontroler implements Initializable{
                     System.out.println(cijenaDo);
                     System.out.println(cijenaOd);
 
-                    filterListaAranzmana.getItems().clear();
+
+//                    filterListaAranzmana.getItems().clear();
+                    filterListaAranzmana = new ListView<>();
                     System.out.println(filtriraniAranzmani);
                     filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
                 } catch (NumberFormatException e) {
@@ -464,14 +478,12 @@ public class AdminGUI extends Kontroler implements Initializable{
                 nacinPutovanja = filterNacinPutovanja.getValue();
 
 
-
                 List<String> filtriraniAranzmani = new ArrayList<>();
 
                 for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
 
                     Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
-
 
                     if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
                             && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
@@ -499,7 +511,6 @@ public class AdminGUI extends Kontroler implements Initializable{
                 System.out.println(cijenaOd);
 
 
-
                 filterListaAranzmana.getItems().clear();
                 System.out.println(filtriraniAranzmani);
                 filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
@@ -519,6 +530,7 @@ public class AdminGUI extends Kontroler implements Initializable{
 
         Aranzman.sviAranzmani.sort(Comparator.comparing(Aranzman::getId));
 
+
         rezervacijeLista.getItems().clear();
 
         for (Aranzman aranzman : sviAranzmani) {
@@ -531,7 +543,7 @@ public class AdminGUI extends Kontroler implements Initializable{
     private void prikaziKlijente(ActionEvent event) {
         ArrayList<Rezervacija> sveRezervacije = Rezervacija.getSveRezervacije();
         System.out.println(sveRezervacije);
-        //ArrayList<Aranzman> sviAranzmani = Aranzman.getSviAranzmani();
+
         String selektovaniAranzman = rezervacijeLista.getSelectionModel().getSelectedItem();
         System.out.println(selektovaniAranzman);
 
@@ -598,6 +610,10 @@ public class AdminGUI extends Kontroler implements Initializable{
         } else {
             DBUtils.dodajIzletDB(i, nazivIzleta, destinacijaIzleta, datumIzleta, cijenaIzleta);
             DBUtils.getDataFromDB();
+            dodajNazivIzlet.clear();
+            dodajCijenaIzlet.clear();
+            dodajCijenaIzlet.clear();
+            dodavanjeDatumIzleta.setValue(null);
         }
     }
     public void dodajPutovanje() {
@@ -642,12 +658,25 @@ public class AdminGUI extends Kontroler implements Initializable{
 
             DBUtils.dodajAranzmanDB(id,nazivPutovanja,destinacijaPutovanja,tipPrevoza,datumPolaskaPutovanja,datumPovratkaPutovanja,cijenaPutovanja,id);
             DBUtils.getDataFromDB();
+
+            dodavanjeNazivSmjestajaPutovanja.clear();
+            dodavanjeNazivPutovanja.clear();
+            dodavanjeDestinacijaPutovanja.clear();
+            dodavanjeCijenePutovanja.clear();
+            dodavanjeDatumPolaskaPutovanja.setValue(null);
+            dodavanjeDatumPovratkaPutovanja.setValue(null);
+            dodavanjeTipPrevoza.setValue(null);
+            dodavanjeCijeneNocenjaPutovanja.clear();
+            dodavanjeVrsteSobe.setValue(null);
+            dodavanjeBrojZvjezdica.setValue(null);
+
         }
     }
 
 
     public void prikaziListuAranzmana(){
         ArrayList<Aranzman> sviAranzmani = getSviAranzmani();
+
 
         ArrayList<String> listaAranzmana = new ArrayList<>();
         for (Aranzman aranzman : sviAranzmani) {
@@ -671,9 +700,10 @@ public class AdminGUI extends Kontroler implements Initializable{
             String id = selektovaniAranzman.substring(0, indexPrvogZnaka).trim();
 
             otkaziPutovanje(id);
+            DBUtils.getDataFromDB();
+
 
             brisanjeListaAranzmana.getItems().remove(selektovaniAranzman);
-            DBUtils.getDataFromDB();
         } else {
 
             System.out.println("Molimo vas da selektujete aranžman za brisanje.");
@@ -683,13 +713,13 @@ public class AdminGUI extends Kontroler implements Initializable{
     public void prikaziListuAdmina(){
         ArrayList<Admin> sviAdmini = getSviAdmini();
 
-
         ArrayList<String> listaAdmina = new ArrayList<>();
         for (Admin admin : sviAdmini) {
 
             String adminString = admin.getadminID()+" - "+ admin.getIme() + " - " + admin.getPrezime();
             listaAdmina.add(adminString);
         }
+
 
         adminSpisakadmina.setItems(FXCollections.observableArrayList(listaAdmina));
     }

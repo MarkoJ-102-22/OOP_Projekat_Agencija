@@ -98,7 +98,6 @@ public class Admin {
 
 
     public static Admin getAdminDuze(String korisnickoIme, String sifra) {
-        //System.out.println(korisnickoIme + " " + sifra);
         for (Admin a : sviAdmini) {
             if (a.getKorisnickoIme().equals(korisnickoIme) && a.getSifra().equals(sifra)) {
                 return a;
@@ -113,6 +112,8 @@ public class Admin {
         return null;
     }
 
-
+    public static void ocistiSveAdmine() {
+        sviAdmini.clear();
+    }
 
 }

@@ -57,6 +57,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
+
         aranzmaniTipPutovanja.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 if (newValue.equals("Putovanje")) {
@@ -65,6 +66,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
                     aranzmaniVrstaSobe.setDisable(false);
                     aranzmaniNacinPrevoza.setDisable(false);
                 } else if (newValue.equals("Izlet")) {
+
                     aranzmaniBrZvjezdica.setDisable(false);
                     aranzmaniVrstaSobe.setDisable(false);
                     aranzmaniNacinPrevoza.setDisable(false);
@@ -82,25 +84,24 @@ public class KlijentGUI extends Kontroler implements Initializable {
         });
 
 
-        aranzmaniTipPutovanja.getItems().add("");
+        aranzmaniTipPutovanja.getItems().add(null);
         aranzmaniTipPutovanja.getItems().add("Izlet");
         aranzmaniTipPutovanja.getItems().add("Putovanje");
 
-        aranzmaniBrZvjezdica.getItems().add("");
+        aranzmaniBrZvjezdica.getItems().add(null);
         aranzmaniBrZvjezdica.getItems().add("Tri");
         aranzmaniBrZvjezdica.getItems().add("Cetiri");
         aranzmaniBrZvjezdica.getItems().add("Pet");
 
-        aranzmaniVrstaSobe.getItems().add("");
+        aranzmaniVrstaSobe.getItems().add(null);
         aranzmaniVrstaSobe.getItems().add("Jednokrevetna");
         aranzmaniVrstaSobe.getItems().add("Dvokrevetna");
         aranzmaniVrstaSobe.getItems().add("Trokrevetna");
 
-        aranzmaniNacinPrevoza.getItems().add("");
+        aranzmaniNacinPrevoza.getItems().add(null);
         aranzmaniNacinPrevoza.getItems().add("Avion");
         aranzmaniNacinPrevoza.getItems().add("Autobus");
         aranzmaniNacinPrevoza.getItems().add("Samostalan");
-
 
 
         brisanje.setOnSelectionChanged(event -> {
@@ -199,6 +200,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
         tipPutovanja=aranzmaniTipPutovanja.getValue();
         if (tipPutovanja != null) {
+            System.out.println(tipPutovanja);
             if (tipPutovanja.equals("Putovanje")) {
                 try {
                     String cijenaOdText = aranzmaniCijenaOd.getText();
@@ -224,7 +226,6 @@ public class KlijentGUI extends Kontroler implements Initializable {
                         datumPovratka1 = java.sql.Date.valueOf(datumPovratka);
                     }
 
-
                     brojZvjezdica = aranzmaniBrZvjezdica.getValue();
                     vrstaSobe = aranzmaniVrstaSobe.getValue();
                     nacinPutovanja = aranzmaniNacinPrevoza.getValue();
@@ -238,7 +239,8 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
                         Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                        if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
+
+                        if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
 
@@ -283,6 +285,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
                     destinacija = aranzmaniDestinacija.getText();
 
+
                     datumKretanja = aranzmaniDatumKretanja.getValue();
                     datumPovratka = aranzmaniDatumPovratka.getValue();
 
@@ -294,15 +297,21 @@ public class KlijentGUI extends Kontroler implements Initializable {
                     }
 
 
+
+
+
                     List<String> filtriraniAranzmani = new ArrayList<>();
 
                     for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
-                        Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
+
+//                        Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
+
 
                         if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+
                                 && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
                                 && (datumPovratka == null || aranzman.getDatumPolaska().equals(datumPovratka1) || aranzman.getDatumPolaska().before(datumPovratka1))
                                 && (aranzman.getDatumDolaska() == null)) {
@@ -344,6 +353,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
                     destinacija = aranzmaniDestinacija.getText();
 
+
                     datumKretanja = aranzmaniDatumKretanja.getValue();
                     datumPovratka = aranzmaniDatumPovratka.getValue();
 
@@ -360,15 +370,19 @@ public class KlijentGUI extends Kontroler implements Initializable {
                     nacinPutovanja = aranzmaniNacinPrevoza.getValue();
 
 
+
                     List<String> filtriraniAranzmani = new ArrayList<>();
 
                     for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
+
                         Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                        if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
+
+                        if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+
                                 && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
                                 && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
                                 && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
@@ -390,10 +404,13 @@ public class KlijentGUI extends Kontroler implements Initializable {
                     System.out.println(cijenaDo);
                     System.out.println(cijenaOd);
 
-                    aranzmanilistaAranzmana.getItems().clear();
+
+//                    filterListaAranzmana.getItems().clear();
+                    aranzmanilistaAranzmana = new ListView<>();
                     System.out.println(filtriraniAranzmani);
                     aranzmanilistaAranzmana.getItems().addAll(filtriraniAranzmani);
                 } catch (NumberFormatException e) {
+
                     e.printStackTrace();
                 }
             }
@@ -426,15 +443,18 @@ public class KlijentGUI extends Kontroler implements Initializable {
                 vrstaSobe = aranzmaniVrstaSobe.getValue();
                 nacinPutovanja = aranzmaniNacinPrevoza.getValue();
 
+
                 List<String> filtriraniAranzmani = new ArrayList<>();
 
                 for (Aranzman aranzman : Aranzman.sviAranzmani) {
+
 
                     Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
                     if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
                             && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                             && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+
                             && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
                             && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
                             && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
@@ -461,6 +481,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
                 System.out.println(filtriraniAranzmani);
                 aranzmanilistaAranzmana.getItems().addAll(filtriraniAranzmani);
             } catch (NumberFormatException e) {
+
                 e.printStackTrace();
             }
         }
@@ -475,6 +496,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
         potvrdaAlert.setTitle("Rezervacija");
         potvrdaAlert.setHeaderText(null);
         String[] dijelovi = tekst.split(" - ");
+
 
         String id = dijelovi[0];
         Aranzman aranzman = Aranzman.getAranzmanById(id);
@@ -520,6 +542,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
         String klientInfo = infoTextArea.getText();
         String[] dijelovii = klientInfo.split(" - ");
 
+
         String klientIdString = dijelovii[0];
         int klijentId=0;
         try {
@@ -541,6 +564,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
 
 
+
         ButtonType potvrdiBtn = new ButtonType("Potvrdi", ButtonBar.ButtonData.OK_DONE);
         ButtonType odbaciBtn = new ButtonType("Odbaci", ButtonBar.ButtonData.CANCEL_CLOSE);
 
@@ -550,8 +574,6 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
 
         if (rezultat.isPresent() && rezultat.get() == potvrdiBtn) {
-
-
 
             String textAreaContent = infoTextArea.getText();
 
@@ -673,6 +695,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
                     prozorObavjestenja("Greska" ,"Pogresna sifra");
                 }
             }
+
 
 
         } else {

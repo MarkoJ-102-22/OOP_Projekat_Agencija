@@ -64,7 +64,7 @@ public class Registracija extends Kontroler {
                             DBUtils.getDataFromDB();
                         }
                         else{
-                         //   prozorObavjestenja("Greška", "Ne postoji jmbg koji se podudara");
+                            //prozorObavjestenja("Greška", "Ne postoji jmbg koji se podudara");
                         }
                     }
 
