@@ -103,7 +103,7 @@ public class Aranzman {
         int maxKlijentID = 0;
 
         if (sviAranzmani != null) {
-            for (com.example.agencija.model.Aranzman ar : sviAranzmani) {
+            for (Aranzman ar : sviAranzmani) {
                 String aranzmanIdString = ar.getId();
                 int aranzmanId;
                 try {
@@ -119,6 +119,7 @@ public class Aranzman {
                 }
             }
         }
+
 
         return maxKlijentID;
     }

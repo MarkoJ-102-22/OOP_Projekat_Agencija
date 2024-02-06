@@ -65,21 +65,25 @@ public class KlijentGUI extends Kontroler implements Initializable {
                     aranzmaniBrZvjezdica.setDisable(false);
                     aranzmaniVrstaSobe.setDisable(false);
                     aranzmaniNacinPrevoza.setDisable(false);
+                    aranzmaniDatumPovratka.setDisable(false);
                 } else if (newValue.equals("Izlet")) {
 
-                    aranzmaniBrZvjezdica.setDisable(false);
-                    aranzmaniVrstaSobe.setDisable(false);
-                    aranzmaniNacinPrevoza.setDisable(false);
+                    aranzmaniBrZvjezdica.setDisable(true);
+                    aranzmaniVrstaSobe.setDisable(true);
+                    aranzmaniNacinPrevoza.setDisable(true);
+                    aranzmaniDatumPovratka.setDisable(true);
                 } else {
                     aranzmaniBrZvjezdica.setDisable(false);
                     aranzmaniVrstaSobe.setDisable(false);
                     aranzmaniNacinPrevoza.setDisable(false);
+                    aranzmaniDatumPovratka.setDisable(false);
                 }
             }
             else{
                 aranzmaniBrZvjezdica.setDisable(false);
                 aranzmaniVrstaSobe.setDisable(false);
                 aranzmaniNacinPrevoza.setDisable(false);
+                aranzmaniDatumPovratka.setDisable(false);
             }
         });
 
@@ -226,6 +230,10 @@ public class KlijentGUI extends Kontroler implements Initializable {
                         datumPovratka1 = java.sql.Date.valueOf(datumPovratka);
                     }
 
+                    LocalDate trenutniDatum = LocalDate.now();
+                    Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                    Date convertedDate = Date.from(instant);
+
                     brojZvjezdica = aranzmaniBrZvjezdica.getValue();
                     vrstaSobe = aranzmaniVrstaSobe.getValue();
                     nacinPutovanja = aranzmaniNacinPrevoza.getValue();
@@ -241,6 +249,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
 
                         if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
+                                && (aranzman.getDatumPolaska().after(convertedDate))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
 
@@ -297,7 +306,9 @@ public class KlijentGUI extends Kontroler implements Initializable {
                     }
 
 
-
+                    LocalDate trenutniDatum = LocalDate.now();
+                    Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                    Date convertedDate = Date.from(instant);
 
 
                     List<String> filtriraniAranzmani = new ArrayList<>();
@@ -309,6 +320,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
 
                         if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
+                                && (aranzman.getDatumPolaska().after(convertedDate))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
 
@@ -364,6 +376,10 @@ public class KlijentGUI extends Kontroler implements Initializable {
                         datumPovratka1 = java.sql.Date.valueOf(datumPovratka);
                     }
 
+                    LocalDate trenutniDatum = LocalDate.now();
+                    Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                    Date convertedDate = Date.from(instant);
+
 
                     brojZvjezdica = aranzmaniBrZvjezdica.getValue();
                     vrstaSobe = aranzmaniVrstaSobe.getValue();
@@ -380,6 +396,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
 
 
                         if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
+                                && (aranzman.getDatumPolaska().after(convertedDate))
                                 && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                                 && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
 
@@ -439,6 +456,10 @@ public class KlijentGUI extends Kontroler implements Initializable {
                     datumPovratka1 = java.sql.Date.valueOf(datumPovratka);
                 }
 
+                LocalDate trenutniDatum = LocalDate.now();
+                Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                Date convertedDate = Date.from(instant);
+
                 brojZvjezdica = aranzmaniBrZvjezdica.getValue();
                 vrstaSobe = aranzmaniVrstaSobe.getValue();
                 nacinPutovanja = aranzmaniNacinPrevoza.getValue();
@@ -452,6 +473,7 @@ public class KlijentGUI extends Kontroler implements Initializable {
                     Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
                     if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
+                            && (aranzman.getDatumPolaska().after(convertedDate))
                             && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
                             && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
 

@@ -77,14 +77,17 @@ public class AdminGUI extends Kontroler implements Initializable{
                     filterBrojZvjezdica.setDisable(false);
                     filterVrstaSobe.setDisable(false);
                     filterNacinPutovanja.setDisable(false);
+                    filterDatumPovratka.setDisable(false);
                 } else if (newValue.equals("Izlet")) {
                     filterBrojZvjezdica.setDisable(true);
                     filterVrstaSobe.setDisable(true);
                     filterNacinPutovanja.setDisable(true);
+                    filterDatumPovratka.setDisable(true);
                 } else {
                     filterBrojZvjezdica.setDisable(false);
                     filterVrstaSobe.setDisable(false);
                     filterNacinPutovanja.setDisable(false);
+                    filterDatumPovratka.setDisable(false);
                 }
 
                 }
@@ -92,6 +95,7 @@ public class AdminGUI extends Kontroler implements Initializable{
                 filterBrojZvjezdica.setDisable(false);
                 filterVrstaSobe.setDisable(false);
                 filterNacinPutovanja.setDisable(false);
+                filterDatumPovratka.setDisable(false);
             }
             });
 
@@ -260,47 +264,56 @@ public class AdminGUI extends Kontroler implements Initializable{
                         datumPovratka1 = java.sql.Date.valueOf(datumPovratka);
                     }
 
-                    brojZvjezdica = filterBrojZvjezdica.getValue();
-                    vrstaSobe = filterVrstaSobe.getValue();
-                    nacinPutovanja = filterNacinPutovanja.getValue();
+                    LocalDate trenutniDatum = LocalDate.now();
+                    Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                    Date convertedDate = Date.from(instant);
+                    long danas= convertedDate.getTime();
+
+
+                        brojZvjezdica = filterBrojZvjezdica.getValue();
+                        vrstaSobe = filterVrstaSobe.getValue();
+                        nacinPutovanja = filterNacinPutovanja.getValue();
 
 
 
-                    List<String> filtriraniAranzmani = new ArrayList<>();
+                        List<String> filtriraniAranzmani = new ArrayList<>();
 
-                    for (Aranzman aranzman : Aranzman.sviAranzmani) {
-
-
-                        Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
+                        for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
 
-                        if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
-                                && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
-                                && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+                            Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                                && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
-                                && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
-                                && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
-                                && (vrstaSobe == null || smjestaj.getVrstaSobe().equals(vrstaSobe))
-                                && (nacinPutovanja == null || aranzman.getPrevoz().equals(nacinPutovanja)) && (aranzman.getDatumDolaska() != null)) {
-                            String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
-                            filtriraniAranzmani.add(listraFiltriranihAranzmana);
+
+                            if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
+                                    && (aranzman.getDatumPolaska().after(convertedDate))
+                                    && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
+                                    && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+
+                                    && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
+                                    && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
+                                    && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
+                                    && (vrstaSobe == null || smjestaj.getVrstaSobe().equals(vrstaSobe))
+                                    && (nacinPutovanja == null || aranzman.getPrevoz().equals(nacinPutovanja)) && (aranzman.getDatumDolaska() != null)) {
+                                String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
+                                filtriraniAranzmani.add(listraFiltriranihAranzmana);
+                            }
+
                         }
+                        System.out.println(tipPutovanja);
+                        System.out.println(nacinPutovanja);
+                        System.out.println(vrstaSobe);
+                        System.out.println(brojZvjezdica);
+                        System.out.println(datumPovratka);
+                        System.out.println(datumKretanja);
+                        System.out.println(destinacija);
+                        System.out.println(cijenaDo);
+                        System.out.println(cijenaOd);
 
-                    }
-                    System.out.println(tipPutovanja);
-                    System.out.println(nacinPutovanja);
-                    System.out.println(vrstaSobe);
-                    System.out.println(brojZvjezdica);
-                    System.out.println(datumPovratka);
-                    System.out.println(datumKretanja);
-                    System.out.println(destinacija);
-                    System.out.println(cijenaDo);
-                    System.out.println(cijenaOd);
+                        filterListaAranzmana.getItems().clear();
+                        System.out.println(filtriraniAranzmani);
+                        filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
 
-                    filterListaAranzmana.getItems().clear();
-                    System.out.println(filtriraniAranzmani);
-                    filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
+
                 } catch (NumberFormatException e) {
 
                     e.printStackTrace();
@@ -330,44 +343,48 @@ public class AdminGUI extends Kontroler implements Initializable{
                         datumPovratka1 = java.sql.Date.valueOf(datumPovratka);
                     }
 
+                    LocalDate trenutniDatum = LocalDate.now();
+                    Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                    Date convertedDate = Date.from(instant);
+                    long danas= convertedDate.getTime();
 
+                        List<String> filtriraniAranzmani = new ArrayList<>();
 
-
-
-                    List<String> filtriraniAranzmani = new ArrayList<>();
-
-                    for (Aranzman aranzman : Aranzman.sviAranzmani) {
+                        for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
 
 //                        Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
 
-                        if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
-                                && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
-                                && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+                            if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
+                                    && (aranzman.getDatumPolaska().after(convertedDate))
+                                    && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
+                                    && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
 
-                                && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
-                                && (datumPovratka == null || aranzman.getDatumPolaska().equals(datumPovratka1) || aranzman.getDatumPolaska().before(datumPovratka1))
-                                && (aranzman.getDatumDolaska() == null)) {
-                            String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
-                            filtriraniAranzmani.add(listraFiltriranihAranzmana);
+                                    && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
+                                    && (datumPovratka == null || aranzman.getDatumPolaska().equals(datumPovratka1) || aranzman.getDatumPolaska().before(datumPovratka1))
+                                    && (aranzman.getDatumDolaska() == null)) {
+                                String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
+                                filtriraniAranzmani.add(listraFiltriranihAranzmana);
+                            }
+
                         }
-
-                    }
-                    System.out.println(tipPutovanja);
-                    System.out.println(nacinPutovanja);
-                    System.out.println(vrstaSobe);
-                    System.out.println(brojZvjezdica);
-                    System.out.println(datumPovratka);
-                    System.out.println(datumKretanja);
-                    System.out.println(destinacija);
-                    System.out.println(cijenaDo);
-                    System.out.println(cijenaOd);
+                        System.out.println(tipPutovanja);
+                        System.out.println(nacinPutovanja);
+                        System.out.println(vrstaSobe);
+                        System.out.println(brojZvjezdica);
+                        System.out.println(datumPovratka);
+                        System.out.println(datumKretanja);
+                        System.out.println(destinacija);
+                        System.out.println(cijenaDo);
+                        System.out.println(cijenaOd);
 
 
-                    filterListaAranzmana.getItems().clear();
-                    System.out.println(filtriraniAranzmani);
-                    filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
+                        filterListaAranzmana.getItems().clear();
+                        System.out.println(filtriraniAranzmani);
+                        filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
+
+
                 } catch (NumberFormatException e) {
 
                     e.printStackTrace();
@@ -399,50 +416,58 @@ public class AdminGUI extends Kontroler implements Initializable{
                     }
 
 
-                    brojZvjezdica = filterBrojZvjezdica.getValue();
-                    vrstaSobe = filterVrstaSobe.getValue();
-                    nacinPutovanja = filterNacinPutovanja.getValue();
+                    LocalDate trenutniDatum = LocalDate.now();
+                    Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                    Date convertedDate = Date.from(instant);
+                    long danas= convertedDate.getTime();
+
+
+                        brojZvjezdica = filterBrojZvjezdica.getValue();
+                        vrstaSobe = filterVrstaSobe.getValue();
+                        nacinPutovanja = filterNacinPutovanja.getValue();
 
 
 
-                    List<String> filtriraniAranzmani = new ArrayList<>();
+                        List<String> filtriraniAranzmani = new ArrayList<>();
 
-                    for (Aranzman aranzman : Aranzman.sviAranzmani) {
-
-
-                        Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
+                        for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
 
-                        if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
-                                && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
-                                && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+                            Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                                && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
-                                && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
-                                && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
-                                && (vrstaSobe == null || smjestaj.getVrstaSobe().equals(vrstaSobe))
-                                && (nacinPutovanja == null || aranzman.getPrevoz().equals(nacinPutovanja))) {
-                            String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
-                            filtriraniAranzmani.add(listraFiltriranihAranzmana);
+
+                            if (smjestaj != null && (destinacija == null || aranzman.getDestinacija().contains(destinacija))
+                                    && (aranzman.getDatumPolaska().after(convertedDate))
+                                    && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
+                                    && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+
+                                    && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
+                                    && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
+                                    && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
+                                    && (vrstaSobe == null || smjestaj.getVrstaSobe().equals(vrstaSobe))
+                                    && (nacinPutovanja == null || aranzman.getPrevoz().equals(nacinPutovanja))) {
+                                String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
+                                filtriraniAranzmani.add(listraFiltriranihAranzmana);
+                            }
+
                         }
 
-                    }
-
-                    System.out.println(tipPutovanja);
-                    System.out.println(nacinPutovanja);
-                    System.out.println(vrstaSobe);
-                    System.out.println(brojZvjezdica);
-                    System.out.println(datumPovratka);
-                    System.out.println(datumKretanja);
-                    System.out.println(destinacija);
-                    System.out.println(cijenaDo);
-                    System.out.println(cijenaOd);
+                        System.out.println(tipPutovanja);
+                        System.out.println(nacinPutovanja);
+                        System.out.println(vrstaSobe);
+                        System.out.println(brojZvjezdica);
+                        System.out.println(datumPovratka);
+                        System.out.println(datumKretanja);
+                        System.out.println(destinacija);
+                        System.out.println(cijenaDo);
+                        System.out.println(cijenaOd);
 
 
 //                    filterListaAranzmana.getItems().clear();
-                    filterListaAranzmana = new ListView<>();
-                    System.out.println(filtriraniAranzmani);
-                    filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
+                        filterListaAranzmana = new ListView<>();
+                        System.out.println(filtriraniAranzmani);
+                        filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
+
                 } catch (NumberFormatException e) {
 
                     e.printStackTrace();
@@ -473,47 +498,55 @@ public class AdminGUI extends Kontroler implements Initializable{
                     datumPovratka1 = java.sql.Date.valueOf(datumPovratka);
                 }
 
-                brojZvjezdica = filterBrojZvjezdica.getValue();
-                vrstaSobe = filterVrstaSobe.getValue();
-                nacinPutovanja = filterNacinPutovanja.getValue();
+                LocalDate trenutniDatum = LocalDate.now();
+                Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                Date convertedDate = Date.from(instant);
+                long danas= convertedDate.getTime();
+
+                    brojZvjezdica = filterBrojZvjezdica.getValue();
+                    vrstaSobe = filterVrstaSobe.getValue();
+                    nacinPutovanja = filterNacinPutovanja.getValue();
 
 
-                List<String> filtriraniAranzmani = new ArrayList<>();
+                    List<String> filtriraniAranzmani = new ArrayList<>();
 
-                for (Aranzman aranzman : Aranzman.sviAranzmani) {
+                    for (Aranzman aranzman : Aranzman.sviAranzmani) {
 
 
-                    Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
+                        Smjestaj smjestaj = Smjestaj.getSmjestajById(aranzman.getSmjestajId());
 
-                    if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
-                            && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
-                            && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
+                        if ((destinacija == null || aranzman.getDestinacija().contains(destinacija))
+                                && (aranzman.getDatumPolaska().after(convertedDate))
+                                && (cijenaOd == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) >= cijenaOd)
+                                && (cijenaDo == 0.0 || Double.parseDouble(aranzman.getCijenaAranzmana()) <= cijenaDo)
 
-                            && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
-                            && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
-                            && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
-                            && (vrstaSobe == null || smjestaj.getVrstaSobe().equals(vrstaSobe))
-                            && (nacinPutovanja == null || aranzman.getPrevoz().equals(nacinPutovanja))) {
-                        String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
-                        filtriraniAranzmani.add(listraFiltriranihAranzmana);
+                                && (datumKretanja == null || aranzman.getDatumPolaska().equals(datumKretanja1) || aranzman.getDatumPolaska().after(datumKretanja1))
+                                && (datumPovratka == null || aranzman.getDatumDolaska().equals(datumPovratka1) || aranzman.getDatumDolaska().before(datumPovratka1))
+                                && (brojZvjezdica == null || smjestaj.getBrojZvjezdica().equals(brojZvjezdica))
+                                && (vrstaSobe == null || smjestaj.getVrstaSobe().equals(vrstaSobe))
+                                && (nacinPutovanja == null || aranzman.getPrevoz().equals(nacinPutovanja))) {
+                            String listraFiltriranihAranzmana = ""+ aranzman.getId() + " - " + aranzman.getNazivPutovanja() + " - " + aranzman.getCijenaAranzmana();
+                            filtriraniAranzmani.add(listraFiltriranihAranzmana);
+                        }
+
                     }
 
-                }
-
-                System.out.println(tipPutovanja);
-                System.out.println(nacinPutovanja);
-                System.out.println(vrstaSobe);
-                System.out.println(brojZvjezdica);
-                System.out.println(datumPovratka);
-                System.out.println(datumKretanja);
-                System.out.println(destinacija);
-                System.out.println(cijenaDo);
-                System.out.println(cijenaOd);
+                    System.out.println(tipPutovanja);
+                    System.out.println(nacinPutovanja);
+                    System.out.println(vrstaSobe);
+                    System.out.println(brojZvjezdica);
+                    System.out.println(datumPovratka);
+                    System.out.println(datumKretanja);
+                    System.out.println(destinacija);
+                    System.out.println(cijenaDo);
+                    System.out.println(cijenaOd);
 
 
-                filterListaAranzmana.getItems().clear();
-                System.out.println(filtriraniAranzmani);
-                filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
+                    filterListaAranzmana.getItems().clear();
+                    System.out.println(filtriraniAranzmani);
+                    filterListaAranzmana.getItems().addAll(filtriraniAranzmani);
+
+
             } catch (NumberFormatException e) {
 
                 e.printStackTrace();
@@ -608,12 +641,24 @@ public class AdminGUI extends Kontroler implements Initializable{
         } else if (datumIzleta == null) {
             prozorObavjestenja("Greška", "Datum izleta je prazno polje");
         } else {
-            DBUtils.dodajIzletDB(i, nazivIzleta, destinacijaIzleta, datumIzleta, cijenaIzleta);
-            DBUtils.getDataFromDB();
-            dodajNazivIzlet.clear();
-            dodajCijenaIzlet.clear();
-            dodajCijenaIzlet.clear();
-            dodavanjeDatumIzleta.setValue(null);
+
+            LocalDate trenutniDatum = LocalDate.now();
+            Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+            Date convertedDate = Date.from(instant);
+            long danas= convertedDate.getTime();
+            long datumIzletaMS = datumIzleta.getTime();
+            if (datumIzletaMS > danas){
+                DBUtils.dodajIzletDB(i, nazivIzleta, destinacijaIzleta, datumIzleta, cijenaIzleta);
+                DBUtils.getDataFromDB();
+                dodajNazivIzlet.clear();
+                dodajCijenaIzlet.clear();
+                dodajCijenaIzlet.clear();
+                dodajDestinacijaIzlet.clear();
+                dodavanjeDatumIzleta.setValue(null);
+            }
+            else {
+                prozorObavjestenja("Greška", "Datum polaska nije dobra vrijednost");
+            }
         }
     }
     public void dodajPutovanje() {
@@ -656,19 +701,38 @@ public class AdminGUI extends Kontroler implements Initializable{
         } else {
 
 
-            DBUtils.dodajAranzmanDB(id,nazivPutovanja,destinacijaPutovanja,tipPrevoza,datumPolaskaPutovanja,datumPovratkaPutovanja,cijenaPutovanja,id);
-            DBUtils.getDataFromDB();
+            LocalDate trenutniDatum = LocalDate.now();
+            Instant instant = trenutniDatum.atStartOfDay(ZoneId.systemDefault()).toInstant();
+            Date convertedDate = Date.from(instant);
+            long danas= convertedDate.getTime();
+            long datumPolaskaPutovanjaMS = datumPolaskaPutovanja.getTime();
+            long datumPovrtakaPutovanjaMS = datumPovratkaPutovanja.getTime();
 
-            dodavanjeNazivSmjestajaPutovanja.clear();
-            dodavanjeNazivPutovanja.clear();
-            dodavanjeDestinacijaPutovanja.clear();
-            dodavanjeCijenePutovanja.clear();
-            dodavanjeDatumPolaskaPutovanja.setValue(null);
-            dodavanjeDatumPovratkaPutovanja.setValue(null);
-            dodavanjeTipPrevoza.setValue(null);
-            dodavanjeCijeneNocenjaPutovanja.clear();
-            dodavanjeVrsteSobe.setValue(null);
-            dodavanjeBrojZvjezdica.setValue(null);
+            System.out.println(danas);
+            System.out.println(datumPolaskaPutovanjaMS);
+            System.out.println(datumPovrtakaPutovanjaMS);
+            if (datumPolaskaPutovanjaMS > danas && datumPovrtakaPutovanjaMS> datumPolaskaPutovanjaMS){
+
+                DBUtils.dodajAranzmanDB(id,nazivPutovanja,destinacijaPutovanja,tipPrevoza,datumPolaskaPutovanja,datumPovratkaPutovanja,cijenaPutovanja,id);
+                DBUtils.getDataFromDB();
+
+                dodavanjeNazivSmjestajaPutovanja.clear();
+                dodavanjeNazivPutovanja.clear();
+                dodavanjeDestinacijaPutovanja.clear();
+                dodavanjeCijenePutovanja.clear();
+                dodavanjeDatumPolaskaPutovanja.setValue(null);
+                dodavanjeDatumPovratkaPutovanja.setValue(null);
+                dodavanjeTipPrevoza.setValue(null);
+                dodavanjeCijeneNocenjaPutovanja.clear();
+                dodavanjeVrsteSobe.setValue(null);
+                dodavanjeBrojZvjezdica.setValue(null);
+            }
+            else {
+                prozorObavjestenja("Greška", "Datum polaska ili povratka putovanja nije dobra vrijednost");
+            }
+
+
+
 
         }
     }
