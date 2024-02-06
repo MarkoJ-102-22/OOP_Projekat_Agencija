@@ -100,23 +100,24 @@ public class Aranzman {
     }
 
     public static int getMax() {
-        int maxKlijentID = Integer.MIN_VALUE;
+        int maxKlijentID = 0;
 
-        for (Aranzman ar : sviAranzmani) {
-            String aranzmanIdString = ar.getId();
-            int aranzmanId;
-            try {
-                aranzmanId = Integer.parseInt(aranzmanIdString);
+        if (sviAranzmani != null) {
+            for (com.example.agencija.model.Aranzman ar : sviAranzmani) {
+                String aranzmanIdString = ar.getId();
+                int aranzmanId;
+                try {
+                    aranzmanId = Integer.parseInt(aranzmanIdString);
 
-                System.out.println("Aranzman ID kao int: " + aranzmanId);
-                if (aranzmanId > maxKlijentID) {
-                    maxKlijentID = aranzmanId;
+                    System.out.println("Aranzman ID kao int: " + aranzmanId);
+                    if (aranzmanId > maxKlijentID) {
+                        maxKlijentID = aranzmanId;
+                    }
+                } catch (NumberFormatException e) {
+
+                    System.out.println("Nije moguće pretvoriti String u int.");
                 }
-            } catch (NumberFormatException e) {
-
-                System.out.println("Nije moguće pretvoriti String u int.");
             }
-
         }
 
         return maxKlijentID;
